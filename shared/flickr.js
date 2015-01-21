@@ -11,7 +11,7 @@ var createJpgPath = function(photos)
 		photo = photos[i];
 		// https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 		photoSrc.push("https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg");
-	}
+		}
 	return photoSrc;	
 };
 if (typeof module !== "undefined"){
