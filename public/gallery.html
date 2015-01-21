@@ -22,12 +22,29 @@
     </ul>
     
     <h3>Live demo</h3>
-    <!-- Flickr API global variables -->
-    <script src="./shared/credentials.js"></script>
     <!-- jQuery library -->
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <!-- Page specic code -->
+    <!-- Flickr API global variables -->
+    <script src="./shared/credentials.js"></script>
     <script src="./shared/flickr.js"></script>
+    <script>
+    	$.ajax({
+			"url": 'https://api.flickr.com/services/rest/',
+			"data": {
+			"method": 'flickr.photos.search',
+			"api_key": credentials.flickr.api_key,
+			"tags": 'seabus',
+			"format": 'json',
+			"nojsoncallback": 1
+		},
+		"success": function (response) {
+			var photoSrc = createJpgPath(response.photos.photo);
+			$.each(photoSrc, function(i, src){
+				$('body').append('<img src="'+src+'">');
+			});
+		}
+		});
+    </script>
     
     
 </body>

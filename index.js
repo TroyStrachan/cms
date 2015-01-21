@@ -14,6 +14,7 @@ server.route({
     handler: function (request, reply) {
 		var credentials = require('./shared/credentials.js'),
 			httpRequest = require('request'),
+			flickrLib= require('./shared/flickr.js'),
 			flickr = {
 				"url": 'https://api.flickr.com/services/rest/',
 				"qs": {
@@ -27,13 +28,23 @@ server.route({
 			};
 		httpRequest(flickr, function (error, incomingMessage, response) {
 			if (!error && incomingMessage.statusCode === 200) {
-				reply(response); // Browser output
-				console.log("Command window");
-			}
-		});
-    }
+				// todo inclass: output html images
+				// reply(flickrLib.createJpgPath(response.photos.photo)); // Browser output
+				var photoSrc = flickrLib.createJpgPath(response.photos.photo),
+					srcTag,
+					i;
+					for (i=0; i<photoSrc.length; i++)
+					{
+						srcTag += '<img src="'+photoSrc[i]+'">';
+					} 
+				// reply(document.body.innerHTML+='<img src="'+photoSrc+'">');
+				// reply(console.log(photoSrc.length))
+				reply(srcTag);
+				// };
+		}
+	})
+	}
 });
-
 server.route({
     method: 'GET',
     path:'/{param*}',
