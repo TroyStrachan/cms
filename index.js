@@ -31,18 +31,15 @@ server.route({
 				// todo inclass: output html images
 				// reply(flickrLib.createJpgPath(response.photos.photo)); // Browser output
 				var photoSrc = flickrLib.createJpgPath(response.photos.photo),
-					srcTag,
+					srcTag="",
 					i;
 					for (i=0; i<photoSrc.length; i++)
 					{
 						srcTag += '<img src="'+photoSrc[i]+'">';
 					} 
-				// reply(document.body.innerHTML+='<img src="'+photoSrc+'">');
-				// reply(console.log(photoSrc.length))
 				reply(srcTag);
-				// };
-		}
-	})
+			}
+		})
 	}
 });
 server.route({
