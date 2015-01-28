@@ -1,0 +1,25 @@
+<html>
+<head>
+   	<title>Mapstraction Simple Example with Leaflet (for mobile)</title>
+   	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<style type="text/css">
+	#mapBox {
+		height: 400px;
+	}
+	</style>
+</head>
+<body>
+	<h3>Live Demo</h3>
+	<!-- Leafelet map provider -->
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<!-- mapstraction abstraction layer -->
+	<script src="mxn.js?(leaflet)"></script>
+
+	<div id="mapBox"></div>
+	<script type="text/javascript">
+		var map = new mxn.Mapstraction('mapBox', 'leaflet'); 
+		var latlon = new mxn.LatLonPoint(51.50733, -0.12769);
+		map.setCenterAndZoom(latlon, 10);
+	</script>
+</body>
+</html>		
