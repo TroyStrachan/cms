@@ -12,44 +12,67 @@
 	<h3>Live Demo</h3>
 	<!-- Leafelet map provider -->
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<!-- mapstraction abstraction layer -->
-	<script src="mxn.js?(leaflet)"></script>
-
+	<!-- <script src="mxn.js?(leaflet)"></script> -->
+	<script src="mxn.js?(googlev3)"></script>
 	<div id="mapBox"></div>
 	<script type="text/javascript">
-		var map = new mxn.Mapstraction('mapBox', 'leaflet'); 
+		// var map = new mxn.Mapstraction('mapBox', 'leaflet'); 
+		var map = new mxn.Mapstraction('mapBox', 'googlev3'); 
 		locations={
 			london: {
 				lat:51.50733,
 				lon: -0.12769,
-				zoom: 10
+				zoom: 10,
+				label: "London"
 			},
 			vanarts:{
 				lat: 49.282698,
 				lon: -123.115358,
-				zoom: 16
+				zoom: 16,
+				label: "Vanarts"
 			},
 			gastown:{
 				lat: 49.284491,
 				lon: -123.108996,
-				zoom: 17
+				zoom: 17,
+				label: "Gas town"
 			}
 		};
-		var points=[],
-			gastown = new mxn.LatLonPoint(locations.gastown.lat, locations.gastown.lon),
-			vanarts = new mxn.LatLonPoint(locations.vanarts.lat, locations.vanarts.lon);
+		// var points=[],
+		// 	gastown = new mxn.LatLonPoint(locations.gastown.lat, locations.gastown.lon),
+		// 	vanarts = new mxn.LatLonPoint(locations.vanarts.lat, locations.vanarts.lon);
 		
-		points.push(gastown, vanarts);
+		// points.push(gastown, vanarts);
+		var createPin;
+		map.addLargeControls(); //zoom and pan controls
+		createPin = function (name, target) {
+			var point = new mxn.LatLonPoint(target.lat, target.lon),
+				pin = new mxn.Marker(point);
+			if (name === "london") {
+				map.setCenterAndZoom(point, 2);
+			}
+			pin.setInfoBubble(target.label);
+			map.addMarker(pin);
+			pin.openBubble();
+		};
+		$.each(locations, createPin);
+		
+		// map.setCenterAndZoom(gastown, locations.vanarts.zoom);
 
-		map.setCenterAndZoom(gastown, locations.vanarts.zoom);
-		var marker = new mxn.Marker(gastown);
-          	map.addMarkerWithData(marker);
-          	marker.addData({"infoBubble":"Gas Town "});
-          	marker.openBubble();
-		var marker2 = new mxn.Marker(vanarts);
-          	map.addMarkerWithData(marker2);
-          	marker2.addData({"infoBubble":"Vanarts "});
-          	marker2.openBubble();
+		// var marker = new mxn.Marker(gastown);
+  //         	map.addMarkerWithData(marker);
+  //         	marker.addData({"infoBubble":locations.gastown.label});
+  //         	marker.openBubble();
+  //         	// add hover open bubble
+  //         	// setHover(marker);
+		// var marker2 = new mxn.Marker(vanarts);
+  //         	map.addMarkerWithData(marker2);
+  //         	marker2.addData({"infoBubble":locations.vanarts.label});
+  //         	marker2.openBubble();
 
 
 	</script>
