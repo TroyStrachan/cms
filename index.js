@@ -53,7 +53,7 @@ server.route({
 			Twit = require('twit'),
 			twitterClient = new Twit(credentials.twitter);
 			twitterClient.get('statuses/user_timeline', { screen_name: 'vanarts', count: 2 },  function (err, data, response) {
-			for (i=0; i<2; i++)
+			for (i=0; i<data.length; i++)
 				{
 					// reply(data[i].text);
 					tweets+= '<p>'+data[i].text+'</p>';
